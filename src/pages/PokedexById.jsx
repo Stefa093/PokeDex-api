@@ -76,7 +76,7 @@ const PokedexById = () => {
           {pokemon?.stats.map((stat) => (
             <li key={stat.stat.name} className="">
               <span className="id-stat_name">{stat.stat.name}</span>
-              <span style={{width: `${stat.base_stat}`}} className="bar">{stat.base_stat}</span>
+              <span style={{width: `${100 * stat.base_stat / 255}%`}} className="bar">{stat.base_stat}</span>
             </li>
           ))}
         </ul>
