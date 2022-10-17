@@ -1,0 +1,27 @@
+.form-search {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.input-search {
+    padding: 0.5rem 1rem;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    height: 2.5rem;
+    font-size: 1.2rem;
+}
+
+.btn-search {
+    padding: 0.5rem 0.8rem;
+    color: var(--color-white);
+    background-color: var(--color-red);
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    cursor: pointer;
+    height: 2.5rem;
+    font-size: 1.2rem;
+}
+
+.btn-search:hover {
+    filter: brightness(1.1);
+}

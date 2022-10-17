@@ -1,0 +1,17 @@
+.err-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 600px;
+    gap: 1rem;
+}
+
+.card_err {
+    text-transform: uppercase;
+    font-size: 2.5rem;
+}
+
+.card__link {
+    font-size: 2rem;
+}
