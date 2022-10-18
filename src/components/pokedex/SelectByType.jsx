@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import '../../components/pokedex/styles/selectByType.css'
 
-const SelectByType = ({setTypeSelected}) => {
+const SelectByType = ({setTypeSelected, setCurrentPage}) => {
   const [types, setTypes] = useState();
 
   useEffect(() => {
@@ -15,6 +15,7 @@ const SelectByType = ({setTypeSelected}) => {
 
   const handleChange = e => {
     setTypeSelected(e.target.value)
+    setCurrentPage(1)
   }
 
   return (

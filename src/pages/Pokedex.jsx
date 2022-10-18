@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import CardPoke from '../components/pokedex/CardPoke'
 import InputSearch from '../components/pokedex/InputSearch'
+import Pagination from '../components/pokedex/Pagination'
 import SelectByType from '../components/pokedex/SelectByType'
 import Header from '../components/shared/Header'
 import './styles/pokedex.css'
@@ -13,7 +14,7 @@ const Pokedex = () => {
   const [pokemons, setPokemons] = useState()
   const [typeSelected, setTypeSelected] = useState('All Pokemons')
   const [currentPage, setCurrentPage] = useState(1)
-  const [postPerPage, setPostPerPage] = useState(6)
+  const [postPerPage, setPostPerPage] = useState(8)
 
   useEffect(() => {
     if (typeSelected !== 'All Pokemons') {
@@ -24,15 +25,16 @@ const Pokedex = () => {
         })
         .catch(err => console.log(err))
     } else{
-        const URL = 'https://pokeapi.co/api/v2/pokemon?limit=10&offset=0'
+        const URL = 'https://pokeapi.co/api/v2/pokemon?limit=2000&offset=0'
         axios.get(URL)
           .then(res => setPokemons(res.data.results))
           .catch(err => console.log(err))
     }
   }, [typeSelected])
 
+  const firstPostIndex = (currentPage - 1) * postPerPage;
   const lastPostIndex = currentPage * postPerPage;
-  const firstPostIndex = lastPostIndex - postPerPage;
+  
   // const currentPosts = pokemons.slice(firstPostIndex, lastPostIndex);
 
   return (
@@ -44,12 +46,17 @@ const Pokedex = () => {
       <aside className='poke-aside'>
         <InputSearch/>
         <SelectByType
-        setTypeSelected={setTypeSelected}/>
+        setTypeSelected={setTypeSelected}
+        setCurrentPage={setCurrentPage}/>
+        <Pagination 
+        currentPage={currentPage}
+        pagesLength = {pokemons && Math.ceil(pokemons.length / postPerPage)}
+        setCurrentPage={setCurrentPage}/>
       </aside>
       <main>
         <div className='card__container'>
           {
-          pokemons?.map(pokemon => (
+          pokemons?.slice(firstPostIndex, lastPostIndex).map(pokemon => (
             <CardPoke
               key={pokemon.url} 
               url={pokemon.url}
@@ -58,6 +65,10 @@ const Pokedex = () => {
           }
         </div>
       </main>
+      <Pagination 
+        currentPage={currentPage}
+        pagesLength = {pokemons && Math.ceil(pokemons.length / postPerPage)}
+        setCurrentPage={setCurrentPage}/>
     </div>
   )
 }
